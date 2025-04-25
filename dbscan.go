@@ -1,7 +1,7 @@
 package dbscan
 
 const (
-	LabelUndefiend = 0
+	LabelUndefined = 0
 	LabelNoise     = -1
 )
 
@@ -22,7 +22,7 @@ func DBScan(points []Point, eps float64, minPoints int) (map[int][]Point, map[in
 
 	for _, point := range points {
 		// Skip if the point is already processed.
-		if labels[point.ID()] != LabelUndefiend {
+		if labels[point.ID()] != LabelUndefined {
 			continue
 		}
 
@@ -57,7 +57,7 @@ func DBScan(points []Point, eps float64, minPoints int) (map[int][]Point, map[in
 			}
 
 			// If the neighbor is already labeled (core or border point), skip it.
-			if labels[neighbor.ID()] != LabelUndefiend {
+			if labels[neighbor.ID()] != LabelUndefined {
 				continue
 			}
 
