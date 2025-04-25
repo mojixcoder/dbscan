@@ -72,7 +72,7 @@ func DBScan(points []Point, eps float64, minPoints int) (map[int][]Point, map[in
 					if queued[neighborNeighbor.ID()] {
 						continue
 					}
-					queued[neighbor.ID()] = true
+					queued[neighborNeighbor.ID()] = true
 					seedSet = append(seedSet, neighborNeighbor)
 				}
 			}
