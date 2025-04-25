@@ -269,16 +269,16 @@ func TestDBScan(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			clusters, labels := DBScan(points, tc.eps, tc.minPoints)
+			res := DBScan(points, tc.eps, tc.minPoints)
 
-			if !maps.Equal(tc.expectedLabels, labels) {
-				t.Errorf("labels are not equal, expected: %v, actual: %v\n", tc.expectedLabels, labels)
+			if !maps.Equal(tc.expectedLabels, res.Labels) {
+				t.Errorf("labels are not equal, expected: %v, actual: %v\n", tc.expectedLabels, res.Labels)
 			}
 
-			if !maps.EqualFunc(tc.expectedClusters, clusters, func(v1, v2 []Point) bool {
+			if !maps.EqualFunc(tc.expectedClusters, res.Clusters, func(v1, v2 []Point) bool {
 				return slices.Equal(v1, v2)
 			}) {
-				t.Errorf("clusters are not equal, expected: %v, actual: %v\n", tc.expectedClusters, clusters)
+				t.Errorf("clusters are not equal, expected: %v, actual: %v\n", tc.expectedClusters, res.Clusters)
 			}
 		})
 	}

@@ -10,11 +10,16 @@ type Point interface {
 	DistanceTo(other Point) float64
 }
 
+type Result struct {
+	Clusters map[int][]Point
+	Labels   map[int]int
+}
+
 // DBScan performs the DBSCAN clustering algorithm on a set of points.
 // points    - slice of all points to be clustered.
 // eps       - neighborhood radius.
 // minPoints - minimum number of points in an eps-neighborhood to form a core point.
-func DBScan(points []Point, eps float64, minPoints int) (map[int][]Point, map[int]int) {
+func DBScan(points []Point, eps float64, minPoints int) Result {
 	clusterID := 0
 	labels := make(map[int]int, len(points))
 	queued := make(map[int]bool, len(points))
@@ -79,7 +84,7 @@ func DBScan(points []Point, eps float64, minPoints int) (map[int][]Point, map[in
 		}
 	}
 
-	return clusters, labels
+	return Result{Clusters: clusters, Labels: labels}
 }
 
 // findNeighbors finds all points in an eps-neighborhood of the query point.
