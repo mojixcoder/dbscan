@@ -41,17 +41,17 @@ func main() {
   eps := 5.0
   minPoints := 2
 
-  clusters, labels := dbscan.DBScan(points, eps, minPoints)
+  result := dbscan.DBScan(points, eps, minPoints)
 
   fmt.Println("### Clusters ###")
-  for clusterID, cluster := range clusters {
+  for clusterID, cluster := range result.Clusters {
     fmt.Printf("Cluster %d: %v\n", clusterID, cluster)
   }
   fmt.Println("################")
   fmt.Println("")
 
   fmt.Println("### Point Labels ###")
-  for pointID, label := range labels {
+  for pointID, label := range result.Labels {
     fmt.Printf("ID(%d): ClusterID(%d)\n", pointID, label)
   }
   fmt.Println("####################")
