@@ -55,7 +55,7 @@ func main() {
 }
 ```
 Example output:
-```css
+```
 ### Clusters ###
 Cluster 1: [{1 1 1} {2 2 2} {3 3 3} {5 5 5}]
 Cluster 2: [{1000 1000 1000} {1001 1001 1001}]
