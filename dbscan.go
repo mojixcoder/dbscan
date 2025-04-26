@@ -8,6 +8,8 @@ const (
 type Point interface {
 	ID() int
 	DistanceTo(other Point) float64
+	Dimension() int
+	AtDimension(int) float64
 }
 
 type Result struct {
@@ -20,6 +22,12 @@ type Result struct {
 // eps       - neighborhood radius.
 // minPoints - minimum number of points in an eps-neighborhood to form a core point.
 func DBScan(points []Point, eps float64, minPoints int) Result {
+	if len(points) == 0 {
+		return Result{Clusters: make(map[int][]Point), Labels: make(map[int]int)}
+	}
+
+	tree := newKDTree(points)
+
 	clusterID := 0
 	labels := make(map[int]int, len(points))
 	queued := make(map[int]bool, len(points))
@@ -31,7 +39,7 @@ func DBScan(points []Point, eps float64, minPoints int) Result {
 			continue
 		}
 
-		neighbors := findNeighbors(points, point, eps)
+		neighbors := tree.rangeSearch(point, eps)
 
 		// Not enough neighbors, mark as noise.
 		if len(neighbors) < minPoints {
@@ -71,7 +79,7 @@ func DBScan(points []Point, eps float64, minPoints int) Result {
 			clusters[clusterID] = append(clusters[clusterID], neighbor)
 
 			// If the neighbor is a core point, add its neighbors to the seed set.
-			neighborNeighbors := findNeighbors(points, neighbor, eps)
+			neighborNeighbors := tree.rangeSearch(neighbor, eps)
 			if len(neighborNeighbors) >= minPoints {
 				for _, neighborNeighbor := range neighborNeighbors {
 					if queued[neighborNeighbor.ID()] {

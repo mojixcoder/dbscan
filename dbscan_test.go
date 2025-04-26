@@ -111,9 +111,9 @@ func TestDBScan(t *testing.T) {
 						Lng:     3,
 					},
 					GeoPoint{
-						PointID: 1,
-						Lat:     1,
-						Lng:     1,
+						PointID: 5,
+						Lat:     5,
+						Lng:     5,
 					},
 					GeoPoint{
 						PointID: 2,
@@ -121,9 +121,9 @@ func TestDBScan(t *testing.T) {
 						Lng:     2,
 					},
 					GeoPoint{
-						PointID: 5,
-						Lat:     5,
-						Lng:     5,
+						PointID: 1,
+						Lat:     1,
+						Lng:     1,
 					},
 				},
 			},
@@ -318,5 +318,13 @@ func TestFindNeighbors(t *testing.T) {
 	neighbors = findNeighbors(points, points[3], 5)
 	if !slices.Equal(expectedNeighbors, neighbors) {
 		t.Errorf("neighbors are not equal, expected: %v, actual: %v\n", expectedNeighbors, neighbors)
+	}
+}
+
+func TestDBScan_No_Points(t *testing.T) {
+	result := DBScan(nil, 10, 0)
+
+	if len(result.Clusters) != 0 || len(result.Labels) != 0 {
+		t.Errorf("expected empty result, got: %v\n", result)
 	}
 }

@@ -1,6 +1,9 @@
 package dbscan
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // GeoPoint represents a point in geographical coordinates.
 // It implements the Point interface for use in DBSCAN clustering.
@@ -22,4 +25,19 @@ func (p GeoPoint) DistanceTo(other Point) float64 {
 	deltaLat := p.Lat - otherGeoPoint.Lat
 	deltaLng := p.Lng - otherGeoPoint.Lng
 	return math.Sqrt((deltaLat * deltaLat) + (deltaLng * deltaLng))
+}
+
+func (p GeoPoint) Dimension() int {
+	return 2
+}
+
+func (p GeoPoint) AtDimension(d int) float64 {
+	switch d {
+	case 0:
+		return p.Lng
+	case 1:
+		return p.Lat
+	default:
+		panic("invalid dimension: " + fmt.Sprint(d))
+	}
 }
