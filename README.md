@@ -73,7 +73,7 @@ ID(2000): ClusterID(-1) // Noise
 ```
 
 ### 🧩 API Overview
-Interface: Point
+**Interface:** `Point`  
 Your data type must implement:
 ```go
 type Point interface {
