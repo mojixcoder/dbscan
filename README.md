@@ -2,13 +2,9 @@
 `dbscan` is a lightweight, pure-Go implementation of the DBSCAN clustering algorithm. It works with any type that implements the `Point` interface—which requires only an `ID()` method and a `DistanceTo(Point) float64` method—so you can easily plug in 2D, ND, geospatial, or custom distance metrics.
 
 Key features:
-
 - Supports arbitrary Point types via a simple interface
-
 - Efficient seed-set expansion with enqueue-tracking to avoid duplicates
-
 - Automatic border-point “rescue” of provisional noise
-
 - Returns both per-cluster point lists and per-point cluster labels
 
 ### Installation
