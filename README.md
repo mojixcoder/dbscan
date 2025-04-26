@@ -78,7 +78,9 @@ Your data type must implement:
 ```go
 type Point interface {
 	ID() int
-	DistanceTo(Point) float64
+	DistanceTo(other Point) float64
+	Dimension() int
+	AtDimension(int) float64
 }
 ```
 ✅ Example implementation: [GeoPoint](https://github.com/mojixcoder/dbscan/blob/main/geo_point.go)
