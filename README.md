@@ -1,18 +1,19 @@
 ## Overview
 `dbscan` is a lightweight, pure-Go implementation of the DBSCAN clustering algorithm. It works with any type that implements the `Point` interface—which requires only an `ID()` method and a `DistanceTo(Point) float64` method—so you can easily plug in 2D, ND, geospatial, or custom distance metrics.
 
-Key features:
+### ✨ Key features
+- k-d Tree Optimization — Accelerates range queries, improving performance on large datasets.
 - Supports arbitrary Point types via a simple interface
 - Efficient seed-set expansion with enqueue-tracking to avoid duplicates
 - Automatic border-point “rescue” of provisional noise
 - Returns both per-cluster point lists and per-point cluster labels
 
-### Installation
+### 📦 Installation
 ```bash
 go get github.com/mojixcoder/dbscan
 ```
 
-### Quick Start
+### 🚀 Quick Start
 
 ``` go
 package main
@@ -54,7 +55,7 @@ func main() {
 }
 ```
 Example output:
-```
+```css
 ### Clusters ###
 Cluster 1: [{1 1 1} {2 2 2} {3 3 3} {5 5 5}]
 Cluster 2: [{1000 1000 1000} {1001 1001 1001}]
@@ -67,6 +68,17 @@ ID(3): ClusterID(1)
 ID(5): ClusterID(1)
 ID(1000): ClusterID(2)
 ID(1001): ClusterID(2)
-ID(2000): ClusterID(-1)
+ID(2000): ClusterID(-1) // Noise
 ####################
 ```
+
+### 🧩 API Overview
+Interface: Point
+Your data type must implement:
+```go
+type Point interface {
+	ID() int
+	DistanceTo(Point) float64
+}
+```
+✅ Example implementation: [GeoPoint](https://github.com/mojixcoder/dbscan/blob/main/geo_point.go)
